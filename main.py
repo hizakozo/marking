@@ -5,7 +5,7 @@ import time
 import os
 from os.path import join, dirname
 from dotenv import load_dotenv
-
+# コメントテスト
 load_dotenv(verbose=True)
 
 dotenv_path = join(dirname(__file__), '.env')
@@ -52,9 +52,9 @@ def marking(userList):
     for userId in userList:
         clickAndReturn(userId)
 def loadPage():
-    time.sleep(2)
+    time.sleep(1)
     driver.execute_script("window.scrollBy(0, -50);")
-    time.sleep(6)
+    time.sleep(4)
 # 要素削る
 def editList(lastIndex, userList):
     del userList[:lastIndex]
