@@ -25,7 +25,7 @@ count = 0
 
 # clickして戻る
 def clickAndReturn(userId):
-    time.sleep(0.5)
+    time.sleep(int(os.environ.get("SLEEP_TIME")))
     nonErr = True
     try:
         driver.find_element_by_id(userId).click()
