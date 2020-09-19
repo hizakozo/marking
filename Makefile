@@ -4,5 +4,5 @@ setup:
 	pip install selenium
 	pip install python-dotenv
 
-start:
+run:
 	python main.py
