@@ -1,4 +1,4 @@
-.PHONY: setup start
+.PHONY: setup run
 
 setup:
 	pip install selenium
