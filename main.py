@@ -48,7 +48,7 @@ def clickAndReturn(userId):
         global count
         count += 1
         print("-- click to: " + userId + " --- count: " + str(count) +" / " + every_one)
-        driver.find_element_by_xpath('/html/body/div[5]/div[6]/div[1]/div[2]/div[1]').click()
+        driver.back()
 
 #ページのlink要素全て取得
 def createUserList(lastIndex):
