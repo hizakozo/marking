@@ -25,23 +25,25 @@ count = 0
 
 # clickして戻る
 def clickAndReturn(userId):
+    isErr = False
     try:
         driver.find_element_by_id(userId).click()
     except:
-        print("要素なし" + str(i))
+        print("要素なし -- user id = " + userId)
+        isErr = True
         pass
     # time.sleep(0.5)
-    isBadGateray = False
     
     try:
         ele = driver.find_element_by_xpath('/html/body/center/h1')
         if(ele.text == '502 Bad Gateway'):
-            isBadGateray = True
+            print('502 Bad Gateway')
+            isErr = True
             driver.back()
     except:
         pass
 
-    if(isBadGateray == False):
+    if(isErr == False):
         global count
         count += 1
         print("-- click to: " + userId + " --- count: " + str(count) +" / " + every_one)
@@ -68,6 +70,7 @@ def loadPage():
 
 def firstCicle():
     userList = createUserList(0)
+    userList.append(999)
     marking(userList)
     loadPage()
     return len(userList)
@@ -78,12 +81,12 @@ def markCicle(lastIndex):
     loadPage()
     return len(userList)
 
-lastIndex = 0
-lastIndex = firstCicle()
-
 def secondCicle():
     global lastIndex
     for i in range(500):
         lastIndex = markCicle(lastIndex)
+
+lastIndex = 0
+lastIndex = firstCicle()
 
 secondCicle()
