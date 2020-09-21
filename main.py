@@ -25,14 +25,11 @@ count = 0
 
 # clickして戻る
 def clickAndReturn(userId):
-    for i in range(5): # 最大3回実行
-        try:
-            driver.find_element_by_id(userId).click()
-        except:
-            print("要素なし" + str(i))
-            pass
-        else:
-            break
+    try:
+        driver.find_element_by_id(userId).click()
+    except:
+        print("要素なし" + str(i))
+        pass
     # time.sleep(0.5)
     isBadGateray = False
     
