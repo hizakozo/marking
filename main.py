@@ -52,7 +52,7 @@ def clickAndReturn(userId):
         print("-- click to: " + userId + " --- count: " + str(count) +" / " + every_one)
         driver.back()
 
-#ページのlink要素全て取得
+#1,クリック対象ユーザーの作成
 def createUserList():
     global lastIndex
     userList = []
@@ -64,19 +64,21 @@ def createUserList():
     lastIndex = len(userList)
     return userList
 
-#ターゲットのリストを全てクリック
+#2,ターゲットを全てクリック
 def marking(userList):
     for userId in userList:
         if(count == int(every_one[:len(every_one)-2]) + 100):
             driver.close()
         clickAndReturn(userId)
 
+#3,ページのロード
 def loadPage():
     time.sleep(1)
     driver.execute_script("window.scrollBy(0, -50);")
     time.sleep(4)
 
-for i in range(100000):
+#1,2,3を繰り返す
+while True:
     userList = createUserList()
     marking(userList)
     loadPage()
