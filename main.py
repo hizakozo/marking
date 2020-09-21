@@ -25,26 +25,39 @@ count = 0
 
 # clickして戻る
 def clickAndReturn(userId):
-    time.sleep(int(os.environ.get("SLEEP_TIME")))
-    nonErr = True
+    for i in range(5): # 最大3回実行
+        try:
+            driver.find_element_by_id(userId).click()
+        except:
+            print("要素なし" + str(i))
+            pass
+        else:
+            break
+    # time.sleep(0.5)
+    isBadGateray = False
+    
     try:
-        driver.find_element_by_id(userId).click()
+        ele = driver.find_element_by_xpath('/html/body/center/h1')
+        if(ele.text == '502 Bad Gateway'):
+            isBadGateray = True
+            driver.back()
     except:
-        print("要素無し")
-        nonErr = False
         pass
-    global count
-    count += 1
-    print("-- click to: " + userId + " --- count: " + str(count) +" / " + every_one)
-    if nonErr:
-        driver.back()
+
+    if(isBadGateray == False):
+        global count
+        count += 1
+        print("-- click to: " + userId + " --- count: " + str(count) +" / " + every_one)
+        driver.find_element_by_xpath('/html/body/div[5]/div[6]/div[1]/div[2]/div[1]').click()
 
 #ページのlink要素全て取得
-def createUserList():
+def createUserList(lastIndex):
     userList = []
     for i, g in enumerate(driver.find_elements_by_class_name("link-area")):
         id = g.get_attribute("id")
         userList.append(id)
+    del userList[:lastIndex]
+    print(userList)
     return userList
 
 #ターゲットのリストを全てクリック
@@ -55,22 +68,15 @@ def loadPage():
     time.sleep(1)
     driver.execute_script("window.scrollBy(0, -50);")
     time.sleep(4)
-# 要素削る
-def editList(lastIndex, userList):
-    del userList[:lastIndex]
-    return userList
 
 def firstCicle():
-    userList = createUserList()
-    print(userList)
+    userList = createUserList(0)
     marking(userList)
     loadPage()
     return len(userList)
 
 def markCicle(lastIndex):
-    userList = createUserList()
-    editList(lastIndex, userList)
-    print(userList)
+    userList = createUserList(lastIndex)
     marking(userList)
     loadPage()
     return len(userList)
