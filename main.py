@@ -62,7 +62,10 @@ def createUserList(lastIndex):
 #ターゲットのリストを全てクリック
 def marking(userList):
     for userId in userList:
+        if(count == int(every_one[:len(every_one)-2]) + 100):
+            driver.close()
         clickAndReturn(userId)
+
 def loadPage():
     time.sleep(1)
     driver.execute_script("window.scrollBy(0, -50);")
@@ -82,7 +85,7 @@ def markCicle(lastIndex):
 
 def secondCicle():
     global lastIndex
-    for i in range(500):
+    for i in range(100000):
         lastIndex = markCicle(lastIndex)
 
 lastIndex = 0
