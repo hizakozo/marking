@@ -70,7 +70,6 @@ def loadPage():
 
 def firstCicle():
     userList = createUserList(0)
-    userList.append(999)
     marking(userList)
     loadPage()
     return len(userList)
