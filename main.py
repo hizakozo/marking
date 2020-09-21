@@ -29,8 +29,8 @@ def clickAndReturn(userId):
     try:
         driver.find_element_by_id(userId).click()
     except:
-        print("要素なし -- user id = " + userId)
         isErr = True
+        print("要素なし")
         pass
     # time.sleep(0.5)
     
@@ -70,6 +70,7 @@ def loadPage():
 
 def firstCicle():
     userList = createUserList(0)
+    userList.append(989)
     marking(userList)
     loadPage()
     return len(userList)
