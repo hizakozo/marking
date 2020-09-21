@@ -23,6 +23,8 @@ every_one = driver.find_element_by_xpath('/html/body/div[5]/div[4]/div[2]/div/di
 
 count = 0
 
+lastIndex = 0
+
 # clickして戻る
 def clickAndReturn(userId):
     isErr = False
@@ -39,7 +41,8 @@ def clickAndReturn(userId):
         if(ele.text == '502 Bad Gateway'):
             print('502 Bad Gateway')
             isErr = True
-            driver.back()
+            driver.refresh()
+            time.sleep(3)
     except:
         pass
 
@@ -50,13 +53,15 @@ def clickAndReturn(userId):
         driver.back()
 
 #ページのlink要素全て取得
-def createUserList(lastIndex):
+def createUserList():
+    global lastIndex
     userList = []
     for i, g in enumerate(driver.find_elements_by_class_name("link-area")):
         id = g.get_attribute("id")
         userList.append(id)
     del userList[:lastIndex]
     print(userList)
+    lastIndex = len(userList)
     return userList
 
 #ターゲットのリストを全てクリック
@@ -71,24 +76,7 @@ def loadPage():
     driver.execute_script("window.scrollBy(0, -50);")
     time.sleep(4)
 
-def firstCicle():
-    userList = createUserList(0)
+for i in range(100000):
+    userList = createUserList()
     marking(userList)
     loadPage()
-    return len(userList)
-
-def markCicle(lastIndex):
-    userList = createUserList(lastIndex)
-    marking(userList)
-    loadPage()
-    return len(userList)
-
-def secondCicle():
-    global lastIndex
-    for i in range(100000):
-        lastIndex = markCicle(lastIndex)
-
-lastIndex = 0
-lastIndex = firstCicle()
-
-secondCicle()
