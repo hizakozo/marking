@@ -1,5 +1,8 @@
 # coding:utf-8
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 import time
 import os
@@ -17,8 +20,7 @@ driver = webdriver.Chrome(executable_path=os.environ.get("DRIVER_PATH"), options
 
 driver.get(os.environ.get("TARGET_PAGE"))
 
-time.sleep(2)
-
+WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, 'search-controller_summary')))
 every_one = driver.find_element_by_xpath('/html/body/div[5]/div[4]/div[2]/div/div[2]/span').text
 
 count = 0
@@ -28,18 +30,9 @@ lastIndex = 0
 # clickして戻る
 def clickAndReturn(userId):
     noErr = True
-    try:
-        driver.find_elements_by_class_name("user-card-small_main-photo")
-    except:
-        print("真っ白エラー")
-        driver.refresh()
-        noErr = False
-        time.sleep(3)
-        pass
-
+    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, 'user-card-small_main-photo')))
     try:
         driver.find_element_by_id(userId).click()
-        time.sleep(0)
     except:
         noErr = False
         print("要素なし")
@@ -51,7 +44,6 @@ def clickAndReturn(userId):
             print('502 Bad Gateway')
             noErr = False
             driver.refresh()
-            time.sleep(3)
     except:
         pass
 
@@ -59,25 +51,19 @@ def clickAndReturn(userId):
         global count
         count += 1
         print("-- click to: " + userId + " --- count: " + str(count) +" / " + every_one)
+        WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "profile-thumb_photo_img")))
         driver.back()
 
-def subCreateUserList():
+#1,クリック対象ユーザーの作成
+def createUserList():
+    global lastIndex
     userList = []
     for i, g in enumerate(driver.find_elements_by_class_name("link-area")):
         id = g.get_attribute("id")
         userList.append(id)
     del userList[:lastIndex]
     print(userList)
-    return userList
-
-#1,クリック対象ユーザーの作成
-def createUserList():
-    global lastIndex
-    userList = subCreateUserList()
     lastIndex = len(userList)
-    if(len(userList) == []):
-        driver.refresh()
-        subCreateUserList()
     return userList
 
 #2,ターゲットを全てクリック
