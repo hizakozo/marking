@@ -31,7 +31,12 @@ lastIndex = 0
 # clickして戻る
 def clickAndReturn(userId):
     noErr = True
-    WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, 'user-card-small_main-photo')))
+    try:
+        WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, 'user-card-small_main-photo')))
+    except:
+        driver.refresh()
+        time.sleep(4)
+        pass
     try:
         driver.find_element_by_id(userId).click()
     except:
