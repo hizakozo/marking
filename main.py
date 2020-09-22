@@ -62,7 +62,12 @@ def createUserList():
         id = g.get_attribute("id")
         userList.append(id)
     if (lastUserId != ''):
-        del userList[:userList.index(lastUserId) + 1]
+        try:
+            del userList[:userList.index(lastUserId) +1]
+        except:
+            print("last user id is empty")
+            del userList[:50]
+            pass
     print(userList)
     lastUserId = userList[-1]
     return userList
