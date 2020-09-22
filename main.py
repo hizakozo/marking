@@ -62,6 +62,9 @@ def createUserList():
     del userList[:lastIndex]
     print(userList)
     lastIndex = len(userList)
+    if(len(userList) == []):
+        print("user list is enpty")
+        driver.refresh()
     return userList
 
 #2,ターゲットを全てクリック
