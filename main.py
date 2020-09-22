@@ -30,11 +30,11 @@ def clickAndReturn(userId):
     isErr = False
     try:
         driver.find_element_by_id(userId).click()
+        time.sleep(0.3)
     except:
         isErr = True
         print("要素なし")
         pass
-    # time.sleep(0.5)
     
     try:
         ele = driver.find_element_by_xpath('/html/body/center/h1')
@@ -63,8 +63,8 @@ def createUserList():
     print(userList)
     lastIndex = len(userList)
     if(len(userList) == []):
-        print("user list is enpty")
         driver.refresh()
+        print("user list is enpty")
     return userList
 
 #2,ターゲットを全てクリック
@@ -78,7 +78,7 @@ def marking(userList):
 def loadPage():
     time.sleep(1)
     driver.execute_script("window.scrollBy(0, -50);")
-    time.sleep(4)
+    time.sleep(2)
 
 #1,2,3を繰り返す
 while True:
