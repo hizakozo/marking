@@ -26,6 +26,7 @@ every_one = driver.find_element_by_xpath('/html/body/div[5]/div[4]/div[2]/div/di
 count = 0
 
 lastUserId = ''
+lastIndex = 0
 
 # clickして戻る
 def clickAndReturn(userId):
@@ -57,6 +58,7 @@ def clickAndReturn(userId):
 #1,クリック対象ユーザーの作成
 def createUserList():
     global lastUserId
+    global lastIndex
     userList = []
     for i, g in enumerate(driver.find_elements_by_class_name("link-area")):
         id = g.get_attribute("id")
@@ -66,10 +68,11 @@ def createUserList():
             del userList[:userList.index(lastUserId) +1]
         except:
             print("last user id is empty")
-            del userList[:50]
+            del userList[:lastIndex]
             pass
     print(userList)
     lastUserId = userList[-1]
+    lastIndex = len(userList)
     return userList
 
 #2,ターゲットを全てクリック
