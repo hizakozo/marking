@@ -28,15 +28,22 @@ count = 0
 lastUserId = ''
 lastIndex = 0
 
+def elementCheck(className):
+    notIsExist = True
+    while notIsExist:
+        try:
+            WebDriverWait(driver, 1).until(EC.visibility_of_element_located((By.CLASS_NAME, className)))
+            notIsExist = False
+        except:
+            driver.refresh()
+            time.sleep(3)
+            pass
+    
+
 # clickして戻る
 def clickAndReturn(userId):
     noErr = True
-    try:
-        WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.CLASS_NAME, 'user-card-small_main-photo')))
-    except:
-        driver.refresh()
-        time.sleep(4)
-        pass
+    elementCheck('user-card-small_main-photo')
     try:
         driver.find_element_by_id(userId).click()
     except:
@@ -57,7 +64,7 @@ def clickAndReturn(userId):
         global count
         count += 1
         print("-- click to: " + userId + " --- count: " + str(count) +" / " + every_one)
-        WebDriverWait(driver, 10).until(EC.visibility_of_element_located((By.CLASS_NAME, "profile-thumb_photo_img")))
+        elementCheck('profile-thumb_photo_img')
         driver.back()
 
 #1,クリック対象ユーザーの作成
