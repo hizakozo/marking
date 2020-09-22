@@ -29,16 +29,12 @@ lastUserId = ''
 lastIndex = 0
 
 def elementCheck(className):
-    notIsExist = True
-    while notIsExist:
-        try:
-            WebDriverWait(driver, 1).until(EC.visibility_of_element_located((By.CLASS_NAME, className)))
-            notIsExist = False
-        except:
-            driver.refresh()
-            time.sleep(3)
-            pass
-    
+    try:
+        WebDriverWait(driver, 1).until(EC.visibility_of_element_located((By.CLASS_NAME, className)))
+    except:
+        driver.refresh()
+        time.sleep(2)
+        pass
 
 # clickして戻る
 def clickAndReturn(userId):
