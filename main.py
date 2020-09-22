@@ -52,19 +52,23 @@ def clickAndReturn(userId):
         print("-- click to: " + userId + " --- count: " + str(count) +" / " + every_one)
         driver.back()
 
-#1,クリック対象ユーザーの作成
-def createUserList():
-    global lastIndex
+def subCreateUserList():
     userList = []
     for i, g in enumerate(driver.find_elements_by_class_name("link-area")):
         id = g.get_attribute("id")
         userList.append(id)
     del userList[:lastIndex]
     print(userList)
+    return userList
+
+#1,クリック対象ユーザーの作成
+def createUserList():
+    global lastIndex
+    userList = subCreateUserList()
     lastIndex = len(userList)
     if(len(userList) == []):
         driver.refresh()
-        print("user list is enpty")
+        subCreateUserList()
     return userList
 
 #2,ターゲットを全てクリック
