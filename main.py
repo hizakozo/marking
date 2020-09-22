@@ -69,7 +69,7 @@ def createUserList():
 #2,ターゲットを全てクリック
 def marking(userList):
     for userId in userList:
-        if(count == int(every_one[:len(every_one)-2]) + 100):
+        if(count == int(every_one[:len(every_one)-2]) + 20):
             driver.close()
         clickAndReturn(userId)
 
