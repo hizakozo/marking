@@ -29,8 +29,17 @@ lastIndex = 0
 def clickAndReturn(userId):
     isErr = False
     try:
+        driver.find_elements_by_class_name("user-card-small_main-photo")
+    except:
+        print("真っ白エラー")
+        driver.refresh()
+        isErr = True
+        time.sleep(3)
+        pass
+
+    try:
         driver.find_element_by_id(userId).click()
-        time.sleep(0.3)
+        time.sleep(0)
     except:
         isErr = True
         print("要素なし")
