@@ -27,13 +27,13 @@ lastIndex = 0
 
 # clickして戻る
 def clickAndReturn(userId):
-    isErr = False
+    noErr = True
     try:
         driver.find_elements_by_class_name("user-card-small_main-photo")
     except:
         print("真っ白エラー")
         driver.refresh()
-        isErr = True
+        noErr = False
         time.sleep(3)
         pass
 
@@ -41,7 +41,7 @@ def clickAndReturn(userId):
         driver.find_element_by_id(userId).click()
         time.sleep(0)
     except:
-        isErr = True
+        noErr = False
         print("要素なし")
         pass
     
@@ -49,13 +49,13 @@ def clickAndReturn(userId):
         ele = driver.find_element_by_xpath('/html/body/center/h1')
         if(ele.text == '502 Bad Gateway'):
             print('502 Bad Gateway')
-            isErr = True
+            noErr = False
             driver.refresh()
             time.sleep(3)
     except:
         pass
 
-    if(isErr == False):
+    if(noErr):
         global count
         count += 1
         print("-- click to: " + userId + " --- count: " + str(count) +" / " + every_one)
