@@ -113,6 +113,8 @@ def create_user_list():
 # 2,ターゲットを全てクリック
 def marking(user_list):
     for userId in user_list:
+        if count == int(every_one[:len(every_one) - 2]) + 20:
+            driver.close()
         click_and_return(userId)
 
 
@@ -124,9 +126,7 @@ def load_page():
 
 
 # 1,2,3を繰り返す
-while count == int(every_one[:len(every_one) - 2]) + 20:
+while True:
     userList = create_user_list()
     marking(userList)
     load_page()
-
-driver.close()
