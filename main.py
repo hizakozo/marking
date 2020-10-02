@@ -105,7 +105,8 @@ def create_user_list():
             del user_list[:lastIndex]
             pass
     print(user_list)
-    lastUserId = user_list[-1]
+    if len(user_list) > 0:
+        lastUserId = user_list[-1]
     lastIndex = len(user_list)
     return user_list
 
@@ -128,7 +129,5 @@ def load_page():
 # 1,2,3を繰り返す
 while True:
     userList = create_user_list()
-    if len(userList) == 0:
-        load_page()
     marking(userList)
     load_page()
