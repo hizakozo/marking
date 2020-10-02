@@ -128,5 +128,7 @@ def load_page():
 # 1,2,3を繰り返す
 while True:
     userList = create_user_list()
+    if len(userList) == 0:
+        load_page()
     marking(userList)
     load_page()
